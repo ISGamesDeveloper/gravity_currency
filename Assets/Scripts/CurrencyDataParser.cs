@@ -6,24 +6,24 @@ using UnityEngine;
 
 public class CurrencyDataParser : MonoBehaviour
 {
-    public CurrencyData data;
-
-    void Start()
+    public CurrencyData ParceData()
     {
         var json = Resources.Load<TextAsset>("Decade/2022.01.01_2022.04.01").ToString();
         json = json.Replace("base", "base_currency");
 
-        data = JsonUtility.FromJson<CurrencyData>(json);
-        data.rates = new Dictionary<string, CurrencyValues>();
+        var _data = JsonUtility.FromJson<CurrencyData>(json);
+        _data.rates = new Dictionary<string, CurrencyValues>();
         JToken array = JToken.Parse(json).SelectToken("$.rates");
 
         foreach (JProperty prop in array.Children())
         {
-            data.rates.Add(prop.Name, JsonUtility.FromJson<CurrencyValues>(prop.Value.ToString()));
+            _data.rates.Add(prop.Name, JsonUtility.FromJson<CurrencyValues>(prop.Value.ToString()));
             Debug.Log(prop.Name + "  -  " + prop.Value);
         }
 
-        Debug.Log(data.rates.ElementAt(0).Value.BYN);
+        Debug.Log(_data.rates.ElementAt(0).Value.BYN);
+
+        return _data;
     }
 }
 
