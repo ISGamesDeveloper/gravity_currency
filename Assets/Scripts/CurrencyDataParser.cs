@@ -8,7 +8,7 @@ public class CurrencyDataParser : MonoBehaviour
 {
     public CurrencyData ParceData()
     {
-        var json = Resources.Load<TextAsset>("Decade/2022.01.01_2022.04.01").ToString();
+        var json = Resources.Load<TextAsset>("Decade/2022.04.01_2022.07.01").ToString();
         json = json.Replace("base", "base_currency");
 
         var _data = JsonUtility.FromJson<CurrencyData>(json);
